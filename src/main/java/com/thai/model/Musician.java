@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -54,6 +55,8 @@ public class Musician {
     //    @JoinFetch(JoinFetchType.OUTER)
     private List<Song> songList = new ArrayList<Song>();
 
+    @Embedded
+    private Address address;
 
     public long getId() {
         return id;
@@ -101,6 +104,14 @@ public class Musician {
 
     public void setSong(Song song) {
         this.songList.add(song);
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
