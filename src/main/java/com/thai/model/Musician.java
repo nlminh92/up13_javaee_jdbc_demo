@@ -1,21 +1,30 @@
 package com.thai.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.eclipse.persistence.annotations.JoinFetch;
+import org.eclipse.persistence.annotations.JoinFetchType;
+
 @Entity
-@Table(name="Musican")
-public class Musican {
+@Table(name="t_musican")
+public class Musician {
 
     @Column(name="pkid")
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -31,6 +40,19 @@ public class Musican {
     @Enumerated(EnumType.STRING)
     @Column(name="music_type", length=16)
     private MusicType musicType;
+
+    //    @JoinColumn(name="instrument") // without me, the column name will be instrument_id, automatically generated
+    @OneToOne(
+            cascade=CascadeType.PERSIST,
+            fetch=FetchType.EAGER)
+    @JoinFetch(JoinFetchType.OUTER)
+    private Instrument instrument;
+
+    @OneToMany(
+            cascade=CascadeType.PERSIST,
+            fetch=FetchType.EAGER)
+    //    @JoinFetch(JoinFetchType.OUTER)
+    private List<Song> songList = new ArrayList<Song>();
 
 
     public long getId() {
@@ -63,6 +85,22 @@ public class Musican {
 
     public void setMusicType(MusicType musicType) {
         this.musicType = musicType;
+    }
+
+    public Instrument getInstrument() {
+        return instrument;
+    }
+
+    public void setInstrument(Instrument instrument) {
+        this.instrument = instrument;
+    }
+
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSong(Song song) {
+        this.songList.add(song);
     }
 
     @Override

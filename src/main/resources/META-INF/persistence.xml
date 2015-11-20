@@ -7,14 +7,24 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>com.thai.model.Musican</class>
+        <class>com.thai.model.Musician</class>
+        <class>com.thai.model.Instrument</class>
+        <class>com.thai.model.Song</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tp_javaee_2015" />
             <property name="javax.persistence.jdbc.user" value="thai" />
             <property name="javax.persistence.jdbc.password" value="123456" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+<!--             create-tables -->
+<!--             none -->
+<!--             create-or-extend-tables -->
+<!--             drop-and-create-tables -->
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+            
+            <property name="eclipselink.logging.level.sql" value="FINE" />
+            <property name="eclipselink.logging.parameters" value="true" />
         </properties>
 
     </persistence-unit>
